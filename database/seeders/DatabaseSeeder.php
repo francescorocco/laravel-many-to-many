@@ -14,6 +14,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+
+        // qui vengono inseriti se vogliamo tutti i seed che necessitano
+        // se si apre il progetto per la prima volta
+
+        $this->call(WorkSeeder::class);
+        $this->call(TypeSeeder::class);
+        $this->call(TechnologySeeder::class);
+
+
+
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([

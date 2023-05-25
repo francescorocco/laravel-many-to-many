@@ -28,7 +28,8 @@ class StoreWorkRequest extends FormRequest
             'title' => ['required',Rule::unique('works')->ignore($this->work),'max:70'],
             'description' => 'nullable|max:65000',
             'languages' => 'nullable|max:250',
-            'type_id' => 'nullable|exists:types,id'
+            'type_id' => 'nullable|exists:types,id',
+            'technologies'=>'exists:technology,id' 
         ];
     }
 }

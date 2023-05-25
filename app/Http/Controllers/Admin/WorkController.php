@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Work;
 use App\Http\Requests\StoreWorkRequest;
 use App\Http\Requests\UpdateWorkRequest;
+use App\Models\Technology;
 use App\Models\Type;
 
 class WorkController extends Controller
@@ -28,8 +29,9 @@ class WorkController extends Controller
      */
     public function create()
     {
+        $technologies = Technology::all();
         $types = Type::all();
-        return view('admin.works.create', compact('types'));
+        return view('admin.works.create', compact('types', 'technologies'));
     }
 
     /**
@@ -49,6 +51,14 @@ class WorkController extends Controller
         }
 
         $newWork = Work::create($form_data);
+
+        //in questo modo andiamo a chiamare il metodo creato all'interno di work
+        //e attacchiamo al suo id l'id di technology
+        //aggiungiamo un controllo per evitari schermate di errori nel caso in cui alla creazione 
+        //non venga selezionato alcun campo in technologies
+        if($request->has('technologies')){
+            $newWork->technologies()->attach($request->technologies);
+        }
 
         return to_route('admin.works.show', ['work'=> $newWork->id])->with('status', 'Progetto aggiornato!');
     }

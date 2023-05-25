@@ -25,4 +25,8 @@ class Work extends Model
     public function type(){
         return $this->belongsTo(Type::class);
     }
+
+    public function tecnhologies(){
+        return $this->belongsToMany(Technology::class);
+    }
 }
