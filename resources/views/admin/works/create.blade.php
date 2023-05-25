@@ -35,7 +35,7 @@
         @enderror
     </div>
     <div class="mb-3">
-        label for="type_id" class="form-label">Seleziona tipo</label>
+        <label for="type_id" class="form-label">Seleziona tipo</label>
 
         <select class="form-select" name="type_id" id="type_id">
             <option @selected(old('type_id')=='') value="">Nessun tipo</option>
@@ -57,7 +57,7 @@
                 che ci ritornera un array con i relativi nomi associati al loro id  --}}
             
                 @foreach ($technologies as $technology)
-                <input id="technology_{{$technology->id}}" @if (in_array($technology->id , old('technologies', []))) checked @endif type="checkbox" name="technology[]" value="{{$technology->id}}">
+                <input id="technology_{{$technology->id}}" @if (in_array($technology->id, old('technologies', []))) checked @endif type="checkbox" name="technologies[]" value="{{$technology->id}}">
                 <label for="technology_{{$technology->id}}" class="form-label">{{$technology->name}}</label>
                 <br>
             @endforeach

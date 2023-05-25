@@ -11,7 +11,9 @@
         <p class="card-text">Descrizione: {{$work->description}}</p>
         <p class="card-text">Tipo: {{$work->type?$work->type->name:'Nessun tipo selezionato'}}</p>
         <p class="card-text">Slug: {{$work->slug}}</p>
-
+        @foreach ($work->technologies as $technology)
+        <p class="card-text">{{$technology->name}}</p>
+        @endforeach
         </div>
 
     </div>

@@ -42,6 +42,8 @@ class WorkController extends Controller
      */
     public function store(StoreWorkRequest $request)
     {
+        // dd($request);
+        // die();
         $form_data = $request->validated();
         $form_data['slug'] = Work::generateSlug($request->title);
         $checkPost = Work::where('slug', $form_data['slug'])->first();
@@ -71,8 +73,9 @@ class WorkController extends Controller
      */
     public function show($id)
     {
+        $technologies = Technology::all();
         $work = Work::findOrFail($id);
-        return view('admin.works.show', compact('work'));
+        return view('admin.works.show', compact('work', 'technologies'));
     }
 
     /**
@@ -83,9 +86,10 @@ class WorkController extends Controller
      */
     public function edit($id)
     {
+        $technologies = Technology::all();
         $types = Type::all();
         $work = Work::findOrFail($id);
-        return view('admin.works.edit', compact('work','types'));
+        return view('admin.works.edit', compact('work','types','technologies'));
     }
 
     /**
@@ -105,6 +109,7 @@ class WorkController extends Controller
             return back()->withInput()->withErrors(['slug' => 'Impossibile creare lo slug']);
         }
 
+        $work->technologies()->sync($request->technologies);
         $work->update($form_data);
 
         return to_route('admin.works.show',['work' => $work->id])->with('status', 'Progetto aggiornato!');

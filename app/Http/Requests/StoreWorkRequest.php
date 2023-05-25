@@ -29,7 +29,7 @@ class StoreWorkRequest extends FormRequest
             'description' => 'nullable|max:65000',
             'languages' => 'nullable|max:250',
             'type_id' => 'nullable|exists:types,id',
-            'technologies'=>'exists:technology,id' 
+            'technologies'=>'exists:technologies,id' 
         ];
     }
 }
